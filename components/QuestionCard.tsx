@@ -29,7 +29,7 @@ export default function QuestionCard({
         {options.map((option, index) => (
           <div
             key={index}
-            className="flex items-center cursor-pointer p-3 rounded-lg hover:bg-gray-50"
+            className="flex items-center cursor-pointer rounded-lg hover:bg-gray-50"
             onClick={() => onAnswer(optionLabels[index])}
           >
             <div className={`flex items-center justify-center h-6 w-6 rounded-full mr-3 
