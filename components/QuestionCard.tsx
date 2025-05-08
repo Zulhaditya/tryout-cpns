@@ -2,6 +2,7 @@
 
 type QuestionCardProps = {
   question: string;
+  questionNumber: number;
   options: string[];
   selectedAnswer: string | null;
   onAnswer: (answer: string) => void;
@@ -10,6 +11,7 @@ type QuestionCardProps = {
 
 export default function QuestionCard({
   question,
+  questionNumber,
   options,
   selectedAnswer,
   onAnswer,
@@ -19,10 +21,10 @@ export default function QuestionCard({
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md mb-6">
-      <h2 className="mb-4">{question}</h2>
+      <h2 className="mb-4">{questionNumber}. {question}</h2>
       {isRagu && (
         <div className="bg-yellow-100 text-yellow-800 p-2 rounded mb-4">
-          Masih ragu
+          Belum dijawab
         </div>
       )}
       <div className="space-y-3">

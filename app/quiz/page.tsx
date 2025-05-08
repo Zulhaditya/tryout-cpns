@@ -106,6 +106,7 @@ export default function QuizPage() {
           <div className="md:col-span-3">
             <QuestionCard
               question={currentQuestion.question}
+              questionNumber={currentQuestionIndex + 1}
               options={currentQuestion.options}
               selectedAnswer={userAnswers[currentQuestion.id] || null}
               onAnswer={handleAnswer}
