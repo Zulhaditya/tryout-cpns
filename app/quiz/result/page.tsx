@@ -51,7 +51,7 @@ export default function ResultPage() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
+      <div className="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
         <h1 className="text-2xl font-bold text-center mb-6">Hasil Tryout CPNS</h1>
 
         <div className="text-center mb-8">
@@ -78,7 +78,7 @@ export default function ResultPage() {
             return (
               <div key={q.id} className="border-b pb-4">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-semibold">{q.question}</h3>
+                  <h3>{q.question}</h3>
                   <span className={`px-2 py-1 text-xs rounded ${status === "answered"
                     ? "bg-green-100 text-green-800"
                     : status === "ragu"
@@ -91,7 +91,7 @@ export default function ResultPage() {
                 <div className="mt-2">
                   <p>
                     <span className="font-medium">Jawaban Anda:</span>{" "}
-                    <span className={isCorrect ? "text-green-600" : "text-red-600"}>
+                    <span className={isCorrect ? "text-green-600 font-semibold" : "text-red-600"}>
                       {userAnswerLetter
                         ? `${userAnswerLetter}. ${getAnswerText(q.id, userAnswerLetter)}`
                         : "-"}
@@ -101,7 +101,7 @@ export default function ResultPage() {
                   {!isCorrect && (
                     <p>
                       <span className="font-medium">Jawaban benar:</span>{" "}
-                      <span className="text-green-600">
+                      <span className="text-green-600 font-semibold">
                         {q.answer}. {getAnswerText(q.id, q.answer)}
                       </span>
                     </p>
