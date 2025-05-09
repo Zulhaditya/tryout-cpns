@@ -36,7 +36,7 @@ export default function QuizPage() {
       // simpan jawaban ke localStorage sebelum navigasi
       localStorage.setItem("quizAnswers", JSON.stringify(userAnswers));
       localStorage.setItem("quizRagu", JSON.stringify(pertanyaanRagu));
-      router.push("/quiz/result");
+      router.push("/quiz/hasil");
     } else {
       setCurrentQuestionIndex((prev) => prev + 1);
     }
@@ -79,7 +79,7 @@ export default function QuizPage() {
             <Timer initialTime={300} onTimeUp={handleTimeUp} />
             <div className="bg-white p-4 rounded-lg shadow-md">
               <h3 className="font-semibold mb-2">Daftar Soal</h3>
-              <div className="grid grid-cols-5">
+              <div className="grid grid-cols-5 gap-2">
                 {questions.map((q, index) => {
                   const status = getQuestionStatus(q.id);
                   const bgColor = {

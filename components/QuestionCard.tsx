@@ -21,7 +21,7 @@ export default function QuestionCard({
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md mb-6">
-      <h2 className="mb-4">{questionNumber}. {question}</h2>
+      <h2 className="text-lg mb-4">{questionNumber}. {question}</h2>
       {isRagu && (
         <div className="bg-yellow-100 text-yellow-800 p-2 rounded mb-4">
           Belum dijawab
@@ -31,7 +31,7 @@ export default function QuestionCard({
         {options.map((option, index) => (
           <div
             key={index}
-            className="flex items-center cursor-pointer rounded-lg hover:bg-gray-50"
+            className="flex items-center cursor-pointer border border-gray-300 p-3 rounded-lg hover:bg-gray-100"
             onClick={() => onAnswer(optionLabels[index])}
           >
             <div className={`flex items-center justify-center h-6 w-6 rounded-full mr-3 
