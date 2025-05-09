@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { questions } from "../../../data/questions";
+import Link from "next/link";
 
 type TabType = 'hasil' | 'analisis';
 
@@ -177,6 +178,21 @@ export default function ResultPage() {
                 <p>Grafik dan analisis mendalam akan ditampilkan di sini</p>
                 {/* Tambahkan komponen analisis di sini */}
               </div>
+            </div>
+
+            <div className="mt-8 text-center">
+              <Link
+                href="/"
+                className="px-4 mr-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              >
+                Kembali ke Home
+              </Link>
+              <Link
+                href="/quiz"
+                className="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600"
+              >
+                Coba Lagi
+              </Link>
             </div>
           </div>
         )}

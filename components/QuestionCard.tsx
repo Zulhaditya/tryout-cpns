@@ -22,11 +22,6 @@ export default function QuestionCard({
   return (
     <div className="bg-white p-6 rounded-lg shadow-md mb-6">
       <h2 className="text-lg mb-4">{questionNumber}. {question}</h2>
-      {isRagu && (
-        <div className="bg-yellow-100 text-yellow-800 p-2 rounded mb-4">
-          Belum dijawab
-        </div>
-      )}
       <div className="space-y-3">
         {options.map((option, index) => (
           <div

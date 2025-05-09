@@ -5,6 +5,7 @@ import { questions } from "../../data/questions";
 import QuestionCard from "../../components/QuestionCard";
 import Timer from "../../components/Timer";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type AnswerStatus = "answered" | "unanswered" | "ragu";
 
@@ -114,6 +115,12 @@ export default function QuizPage() {
             />
 
             <div className="flex justify-end">
+              <Link
+                href="/"
+                className="px-4 mr-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
+              >
+                Batalkan
+              </Link>
               <button
                 onClick={handleRagu}
                 className="px-4 py-2 mr-4 bg-gray-500 text-white rounded-md hover:bg-gray-600"
