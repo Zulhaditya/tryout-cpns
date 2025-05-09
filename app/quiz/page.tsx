@@ -44,7 +44,7 @@ export default function QuizPage() {
   };
 
   const handlePrev = () => {
-    setCurrentQuestionIndex((prev) => prev - 1);
+    setCurrentQuestionIndex((prev) => Math.max(prev - 1, 0));
   }
 
   const handleRagu = () => {
@@ -129,7 +129,8 @@ export default function QuizPage() {
               </button>
               <button
                 onClick={handlePrev}
-                className="px-4 py-2 mr-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                className={`px-4 py-2 rounded-md mr-4 ${currentQuestionIndex === 0 ? 'bg-gray-400 text-white cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600 text-white'}`}
+                disabled={currentQuestionIndex === 0}
               >
                 Sebelumnya
               </button>
