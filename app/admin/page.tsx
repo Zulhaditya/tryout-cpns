@@ -63,41 +63,6 @@ export default function CreateSoalPage() {
     }));
   };
 
-  const handleSubmit = async () => {
-    if (!selectedPaket) return;
-
-    const method = editingQuestionId ? 'PUT' : 'POST';
-    const url = editingQuestionId
-      ? `/api/questions/${editingQuestionId}`
-      : '/api/questions';
-
-    const res = await fetch(url, {
-      method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        ...formData,
-        package_id: selectedPaket.id,
-      }),
-    });
-
-    if (res.ok) {
-      setFormData({
-        category: '',
-        sub_category: '',
-        question: '',
-        options: ['', '', '', '', ''],
-        answer: '',
-        explanation: '',
-      }
-      );
-      setShowForm(false);
-      setEditingQuestionId(null);
-      fetchQuestions(selectedPaket.id);
-    } else {
-      alert('Gagal menyimpan soal.');
-    }
-  };
-
   const handleEdit = (question: Question) => {
     setFormData({
       category: question.category,
@@ -174,7 +139,10 @@ export default function CreateSoalPage() {
             ) : (
               <FormSoal
                 packageId={selectedPaket.id}
-                onSoalSaved={handleSubmit}
+                onSoalSaved={() => {
+                  setShowForm(false);
+                  fetchQuestions(selectedPaket.id);
+                }}
                 editingQuestion={questions.find(q => q.id === editingQuestionId) || null}
                 clearEdit={() => {
                   setEditingQuestionId(null);

@@ -66,7 +66,7 @@ export default function FormSoal({ packageId, onSoalSaved, editingQuestion, clea
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const method = editingQuestion?.id ? 'PUT' : 'POST';
-    const url = '/api/questions';
+    const url = editingQuestion?.id ? `/api/questions/${editingQuestion.id}` : '/api/questions';
 
     const res = await fetch(url, {
       method,
@@ -75,13 +75,34 @@ export default function FormSoal({ packageId, onSoalSaved, editingQuestion, clea
     });
 
     if (res.ok) {
-      alert('Berhasil menyimpan soal!')
-      onSoalSaved();
+      alert('Berhasil menyimpan soal!');
+      onSoalSaved(); // Memanggil fungsi dari komponen induk
       handleReset();
     } else {
       alert('Gagal menyimpan soal');
     }
   };
+
+
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   const method = editingQuestion?.id ? 'PUT' : 'POST';
+  //   const url = '/api/questions';
+  //
+  //   const res = await fetch(url, {
+  //     method,
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({ ...form, package_id: packageId }),
+  //   });
+  //
+  //   if (res.ok) {
+  //     alert('Berhasil menyimpan soal!')
+  //     onSoalSaved();
+  //     handleReset();
+  //   } else {
+  //     alert('Gagal menyimpan soal');
+  //   }
+  // };
 
   return (
     <section className="w-2/4 p-4">
