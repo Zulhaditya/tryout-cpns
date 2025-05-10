@@ -28,8 +28,23 @@ export default function FormSoal({ packageId, onSoalSaved, editingQuestion, clea
   };
   const [form, setForm] = useState(defaultForm);
 
+  // useEffect(() => {
+  //   if (editingQuestion) setForm(editingQuestion);
+  // }, [editingQuestion]);
+
   useEffect(() => {
-    if (editingQuestion) setForm(editingQuestion);
+    if (editingQuestion) {
+      setForm({
+        category: editingQuestion.category || '',
+        sub_category: editingQuestion.sub_category || '',
+        question: editingQuestion.question || '',
+        options: Array.isArray(editingQuestion.options) && editingQuestion.options.length === 5
+          ? editingQuestion.options
+          : ['', '', '', '', ''],
+        answer: editingQuestion.answer || '',
+        explanation: editingQuestion.explanation || '',
+      });
+    }
   }, [editingQuestion]);
 
   const handleChange = (e: React.ChangeEvent<any>) => {

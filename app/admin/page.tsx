@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import FormSoal from '@/components/FormSoal';
 
 type Paket = {
   id: number;
@@ -13,6 +14,9 @@ type Question = {
   question: string;
   category: string;
   sub_category: string;
+  options: string[];
+  answer: string;
+  explanation: string;
 };
 
 export default function CreateSoalPage() {
@@ -20,12 +24,15 @@ export default function CreateSoalPage() {
   const [selectedPaket, setSelectedPaket] = useState<Paket | null>(null);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [showForm, setShowForm] = useState(false);
+  const [editingQuestionId, setEditingQuestionId] = useState<number | null>(null);
   const [formData, setFormData] = useState({
-    question: '',
     category: '',
     sub_category: '',
+    question: '',
+    options: ['', '', '', '', ''],
+    answer: '',
+    explanation: '',
   });
-  const [editingQuestionId, setEditingQuestionId] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchPackages = async () => {
@@ -74,7 +81,15 @@ export default function CreateSoalPage() {
     });
 
     if (res.ok) {
-      setFormData({ question: '', category: '', sub_category: '' });
+      setFormData({
+        category: '',
+        sub_category: '',
+        question: '',
+        options: ['', '', '', '', ''],
+        answer: '',
+        explanation: '',
+      }
+      );
       setShowForm(false);
       setEditingQuestionId(null);
       fetchQuestions(selectedPaket.id);
@@ -85,9 +100,12 @@ export default function CreateSoalPage() {
 
   const handleEdit = (question: Question) => {
     setFormData({
-      question: question.question,
       category: question.category,
       sub_category: question.sub_category,
+      question: question.question,
+      options: question.options,
+      answer: question.answer,
+      explanation: question.explanation
     });
     setEditingQuestionId(question.id);
     setShowForm(true);
@@ -138,7 +156,14 @@ export default function CreateSoalPage() {
             {!showForm ? (
               <button
                 onClick={() => {
-                  setFormData({ question: '', category: '', sub_category: '' });
+                  setFormData({
+                    category: '',
+                    sub_category: '',
+                    question: '',
+                    options: ['', '', '', '', ''],
+                    answer: '',
+                    explanation: '',
+                  });
                   setShowForm(true);
                   setEditingQuestionId(null);
                 }}
@@ -147,47 +172,15 @@ export default function CreateSoalPage() {
                 ➕ Tambah Soal Baru
               </button>
             ) : (
-              <div className="space-y-3">
-                <input
-                  name="category"
-                  placeholder="Kategori"
-                  value={formData.category}
-                  onChange={handleChange}
-                  className="w-full border px-3 py-2 rounded"
-                />
-                <input
-                  name="sub_category"
-                  placeholder="Sub Kategori"
-                  value={formData.sub_category}
-                  onChange={handleChange}
-                  className="w-full border px-3 py-2 rounded"
-                />
-                <textarea
-                  name="question"
-                  placeholder="Tulis pertanyaan di sini..."
-                  value={formData.question}
-                  onChange={handleChange}
-                  className="w-full border px-3 py-2 rounded min-h-[100px]"
-                />
-                <div className="flex gap-2">
-                  <button
-                    onClick={handleSubmit}
-                    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-                  >
-                    {editingQuestionId ? 'Simpan Perubahan' : 'Simpan Soal'}
-                  </button>
-                  <button
-                    onClick={() => {
-                      setFormData({ question: '', category: '', sub_category: '' });
-                      setShowForm(false);
-                      setEditingQuestionId(null);
-                    }}
-                    className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400"
-                  >
-                    Batal
-                  </button>
-                </div>
-              </div>
+              <FormSoal
+                packageId={selectedPaket.id}
+                onSoalSaved={handleSubmit}
+                editingQuestion={questions.find(q => q.id === editingQuestionId) || null}
+                clearEdit={() => {
+                  setEditingQuestionId(null);
+                  setShowForm(false);
+                }}
+              />
             )}
           </>
         ) : (
