@@ -4,8 +4,10 @@ import { useState, useEffect } from 'react';
 
 const categories = ['TWK', 'TIU', 'TKP'];
 const subCategories = [
-  'Integritas', 'Penalaran Analitis', 'Pancasila', 'UUD 1945',
-  'Wawasan Kebangsaan', 'Nasionalisme', 'Numerik', 'Figural'
+  'Integritas', 'Nasionalisme', 'Bela Negara', 'Pilar Negara',
+  'Bahasa Indonesia', 'Analogi', 'Silogisme', 'Penalaran Analitis',
+  'Numerik', 'Figural', 'Profesionalisme', 'Pelayanan Publik',
+  'Jejaring Kerja', 'TIK', 'Sosial Budaya', 'Anti Radikalisme'
 ];
 
 interface FormSoalProps {

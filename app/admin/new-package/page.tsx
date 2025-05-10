@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import SidebarPaket from '@/components/SidebarPaket';
+import PaketSidebar from '@/components/SidebarPaket';
 import FormSoal from '@/components/FormSoal';
 import DaftarSoal from '@/components/DaftarSoal';
 
@@ -28,7 +28,7 @@ export default function PaketPage() {
 
   return (
     <div className="flex min-h-screen">
-      <SidebarPaket
+      <PaketSidebar
         onPaketCreated={(id, name) => {
           setPackageId(id);
           setPackageName(name);
