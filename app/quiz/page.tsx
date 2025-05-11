@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
-import { questions } from "../../data/questions";
+import { useState, useEffect } from "react";
 import QuestionCard from "../../components/QuestionCard";
 import Timer from "../../components/Timer";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+// import { questions } from "../../data/questions";
 
 type AnswerStatus = "answered" | "unanswered" | "ragu";
 
@@ -14,8 +14,29 @@ export default function QuizPage() {
   const [userAnswers, setUserAnswers] = useState<Record<number, string>>({});
   const [pertanyaanRagu, setPertanyaanRagu] = useState<Record<number, boolean>>({});
   const router = useRouter();
+
+  // state untuk list pertanyaan di database
+  const [questions, setQuestions] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const currentQuestion = questions[currentQuestionIndex];
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
+
+  useEffect(() => {
+    const fetchQuestions = async (packageId: number) => {
+      try {
+        const res = await fetch(`/api/questions?package_id=${packageId}`);
+        const data = await res.json();
+        setQuestions(data);
+      } catch (err) {
+        alert("Gagal mengambil data soal.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // ambil data paket 11
+    fetchQuestions(11);
+  }, []);
 
   // handler untuk jawaban yang dipilih (A/B/C/D/E)
   const handleAnswer = (selectedOption: string) => {
@@ -71,13 +92,17 @@ export default function QuizPage() {
     setCurrentQuestionIndex(index);
   };
 
+
+  if (loading) return <p>Memuat soal...</p>;
+  if (!questions.length) return <p>Soal tidak ditemukan</p>;
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-2xl font-bold text-center mb-6">Tryout CPNS</h1>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="md:col-span-1 space-y-4">
-            <Timer initialTime={300} onTimeUp={handleTimeUp} />
+            <Timer initialTime={6000} onTimeUp={handleTimeUp} />
             <div className="bg-white p-4 rounded-lg shadow-md">
               <h3 className="font-semibold mb-2">Daftar Soal</h3>
               <div className="grid grid-cols-5 gap-2">
