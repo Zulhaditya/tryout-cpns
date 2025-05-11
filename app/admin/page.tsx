@@ -91,7 +91,7 @@ export default function CreateSoalPage() {
   };
 
   return (
-    <div className="grid grid-cols-3 gap-6 p-6">
+    <div className="grid grid-cols-[minmax(auto,200px)_1.5fr_1fr] gap-6 p-6">
       {/* Kolom kiri: daftar paket */}
       <div className="space-y-4">
         <h1 className="text-xl font-bold">Daftar Paket</h1>

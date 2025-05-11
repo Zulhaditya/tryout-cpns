@@ -105,7 +105,7 @@ export default function FormSoal({ packageId, onSoalSaved, editingQuestion, clea
   // };
 
   return (
-    <section className="w-2/4 p-4">
+    <section className="w-2/4 p-4 w-full max-w-full">
       <form onSubmit={handleSubmit} className="space-y-2">
         <select name="category" value={form.category} onChange={handleChange} required className="w-full border p-2 rounded">
           <option value="">-- Pilih Kategori --</option>
