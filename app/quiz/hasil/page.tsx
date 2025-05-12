@@ -140,14 +140,15 @@ export default function ResultPage() {
                   })}
                 </div>
 
-                {userAnswers[currentQuestion.id] !== currentQuestion.answer && (
-                  <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
-                    <p className="font-medium text-green-800">Jawaban benar:</p>
-                    <p className="text-green-600">
-                      {currentQuestion.answer}. {currentQuestion.options[currentQuestion.answer.charCodeAt(0) - 65]}
-                    </p>
-                  </div>
-                )}
+                <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+                  <p className="font-medium text-green-800">Jawaban benar:</p>
+                  <p className="text-green-600 mb-3">
+                    {currentQuestion.answer}. {currentQuestion.options[currentQuestion.answer.charCodeAt(0) - 65]}
+                  </p>
+                  <p>
+                    {currentQuestion.explanation}
+                  </p>
+                </div>
               </div>
 
               <div className="flex justify-between mt-4">
