@@ -5,7 +5,6 @@ import QuestionCard from "../../components/QuestionCard";
 import Timer from "../../components/Timer";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-// import { questions } from "../../data/questions";
 
 type AnswerStatus = "answered" | "unanswered" | "ragu";
 

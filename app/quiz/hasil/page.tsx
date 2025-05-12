@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { questions } from "../../../data/questions";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 type TabType = 'hasil' | 'analisis';
@@ -10,12 +9,33 @@ export default function ResultPage() {
   const [activeTab, setActiveTab] = useState<TabType>('hasil');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const userAnswers = JSON.parse(localStorage.getItem('quizAnswers') || '{}');
+
+  // state untuk list pertanyaan di database
+  const [questions, setQuestions] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const currentQuestion = questions[currentQuestionIndex];
 
   // Hitung skor
   const score = questions.filter(q => userAnswers[q.id] === q.answer).length;
   const totalQuestions = questions.length;
   const percentage = (score / totalQuestions) * 100;
+
+  useEffect(() => {
+    const fetchQuestions = async (packageId: number) => {
+      try {
+        const res = await fetch(`/api/questions?package_id=${packageId}`);
+        const data = await res.json();
+        setQuestions(data);
+      } catch (err) {
+        alert("Gagal mengambil data soal.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    // ambil data paket 11
+    fetchQuestions(11);
+  }, []);
 
   // Fungsi untuk menentukan style jawaban
   const getAnswerStyle = (optionIndex: number) => {
@@ -34,6 +54,9 @@ export default function ResultPage() {
   const navigateToQuestion = (index: number) => {
     setCurrentQuestionIndex(index);
   };
+
+  if (loading) return <p>Memuat soal...</p>;
+  if (!questions.length) return <p>Soal tidak ditemukan</p>;
 
   return (
     <div className="min-h-screen bg-gray-100 p-6">
